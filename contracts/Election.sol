@@ -14,8 +14,7 @@ contract Election {
     //state variable assigned getter function
 
     // Store accounts that have voted
-    //---I don't know where this was added in the video??
-    mapping(address => bool) public voters;
+    mapping(address => bool) public voters;//getter function assigned automatically because it is public
 
     //Store Candidates
     //Fetch Candidates
@@ -26,7 +25,6 @@ contract Election {
     //counter cache to fetch from mapping, state variable
 
     // voted event
-    //---I don't know where this was added in the video??
     event votedEvent(
         uint indexed _candidateId
     );
@@ -40,5 +38,21 @@ contract Election {
     function addCandidate(string memory _name) private {
         candidatesCount++;
         candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+    }
+
+    function vote(uint _candidateId) public {
+        // require address has not voted before
+        require(!voters[msg.sender]);//condition is true then execute function, boolean value
+
+        // require a valid candidate
+        require(_candidateId > 0 && _candidateId <= candidatesCount);
+        //if an exception is thrown the function will refund the ethereum up to this point, important to be bug free to save gas
+
+        //record that voter has voted
+        voters[msg.sender] = true;
+        //solidity metadata from account that sends function, msg is the message metadata and .sender is the metadata from the account that calls function
+
+        //increase vote count for candidate
+        candidates[_candidateId].voteCount ++;
     }
 }
