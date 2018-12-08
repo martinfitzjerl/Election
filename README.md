@@ -3,6 +3,7 @@
 * [Election App](https://martinfitzjerl.github.io/Election/src/index.html)
 
 To interact with the application you must have the MetaMask chrome browser extension
+
 This version is for demo purposes only
 
 # Support Me
